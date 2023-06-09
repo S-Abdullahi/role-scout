@@ -7,6 +7,19 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+:root {
+  --bg-main: #023047;
+  --bg-light: #194058;
+  --bg-card: #365973;
+  --text-active: #d3f1ff;
+  --text-inactive: #95cce7;
+  --bg-icon: #805b00;
+  --card-title: #ffc941;
+  --card-accent-text: #ffe992;
+  --card-hover: #b38835;
+
+}
 body {
   padding: 0;
   margin: 0;
