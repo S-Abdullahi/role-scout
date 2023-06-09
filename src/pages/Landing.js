@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import landing from '../assets/landing.svg'
+import landing from "../assets/landing.svg";
 
 const Landing = () => {
   return (
@@ -10,25 +10,27 @@ const Landing = () => {
         <span className="text-[#926b00]">R</span>ole
         <span className="text-[#926b00]">S</span>cout
       </div>
-      <div className="pt-20 md:pt-40 flex flex-col-reverse md:flex-row items-center gap-4">
-        <div>
+      {/* flex flex-col-reverse md:flex-row items-center */}
+      <div className="pt-20 md:pt-40 grid grid-cols-1 md:grid-cols-12 md:items-center gap-4">
+        <div className="col-span-6 order-2">
           <h1 className="text-3xl sm:text-4xl font-bold text-[#d3f1ff]">
             Job Application <span className="text-[#926b00]">Tracking</span> App
           </h1>
-          <p className="text-[#d3f1ff] w-full lg:w-2/3 leading-6 mt-4">
-            I'm baby wayfarers hoodie next level taiyaki brooklyn cliche blue
-            bottle single-origin coffee chia. Aesthetic post6ironic venmo,
-            quinoa lo-fi tote bag adaptogen everyday carry meggings +1 brunch
-            narwhal.
+          <p className="text-[#d3f1ff] text-base font-thin w-full lg:w-2/3 leading-6 mt-4">
+            Role Scout is an innovative job tracking app designed to empower
+            individuals on their professional journey. Whether you're a seasoned
+            professional seeking new opportunities or a fresh graduate taking
+            your first steps into the workforce, Role Scout is here to guide you
+            every step of the way.
           </p>
-          <Link to="dashboard">
-            <button className="mt-5 px-2 py-1  bg-[#926b00] rounded-sm font-medium text-[#d3f1ff]">
+          <Link to="/login">
+            <button className="mt-5 mb-5 px-2 py-1  bg-[#926b00] rounded-sm font-medium text-[#d3f1ff]">
               Login / Register
             </button>
           </Link>
         </div>
-        <div className="">
-          <img src={landing} alt="tracking"/>
+        <div className="col-span-6 w-2/3 sm:w-full lg:w-2/3 order-1 md:order-2">
+          <img src={landing} alt="tracking" />
         </div>
       </div>
     </div>
