@@ -6,7 +6,7 @@ const Login = () => {
   const [isRegister, setIsRegister] = useState(false);
   return (
     <div className="h-screen w-screen bg-[--bg-main] flex justify-center">
-      <div className="pt-16 w-[70%] sm:w-60% md:w-45% lg:max-w-[30%]">
+      <div className="pt-16 w-[90%] sm:w-60% md:w-45% lg:max-w-[30%]">
         <div className="bg-[--text-active]  t-[50%] rounded shadow-sm py-10 px-8">
           <div className="flex justify-center">
             <Logo />
