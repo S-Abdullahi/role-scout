@@ -34,7 +34,7 @@ const SideBar = () => {
   const [item, setItem] = useState('Stats')
   return (
     <div
-      className={`bg-[--bg-main] pl-8 py-8 col-span-2 ${
+      className={`bg-[--bg-main] pl-3 md:pl-8 py-8  col-span-6 md:col-span-2 ${
         openSideBar
           ? "translate-x-0 transition-all duration-300"
           : "-translate-x-full transition-all duration-300"
