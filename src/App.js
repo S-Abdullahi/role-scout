@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home, AddJobs, AllJobs, Landing, SharedHeader, Error, Login } from "./pages";
+import { Home, AddJobs, AllJobs, Landing, SharedHeader, Error, Login, Profile } from "./pages";
 
 function App() {
   return (
@@ -12,6 +12,7 @@ function App() {
           <Route path="add-jobs" element={<AddJobs />} />
           <Route path="all-jobs" element={<AllJobs />} />
           <Route path="dashboard" element={<Home />} />
+          <Route path='profile' element={<Profile/>}/>
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>

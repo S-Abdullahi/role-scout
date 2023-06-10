@@ -11,9 +11,9 @@ const SharedHeader = () => {
   const { openSideBar, openSideSlider } = useMainContext();
   return (
     <React.Fragment>
-      <div className="flex items-center justify-between bg-[--bg-main] text-[--text-active] px-2 col-start-1 col-end-[-1] ">
+      <div className="flex items-center justify-between bg-[--bg-main] text-[--text-active] px-8 col-start-1 col-end-[-1] ">
         <div>
-          <HiMenuAlt1 className="text-4xl" onClick={() => openSideSlider()} />
+          <HiMenuAlt1 className="text-4xl cursor-pointer" onClick={() => openSideSlider()} />
         </div>
         <div>
           <Logo />

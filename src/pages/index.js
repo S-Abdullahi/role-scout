@@ -6,5 +6,6 @@ import Register from "./Register";
 import SharedHeader from "./SharedHeader";
 import Error from "./Error";
 import Login from "./Login";
+import Profile from "./Profile";
 
-export {AddJobs, AllJobs, Landing, Register, Home, SharedHeader, Error, Login}
+export {AddJobs, AllJobs, Landing, Register, Home, SharedHeader, Error, Login, Profile}
