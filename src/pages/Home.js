@@ -4,7 +4,7 @@ import {FaBug} from 'react-icons/fa'
 
 const Home = () => {
   return (
-    <div className="grid grid-cols-12 gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
       <div className="md:col-span-4 bg-white p-3 rounded bg-[--bg-card]">
         <div className="flex justify-between mb-10">
           <span className="text-4xl font-semibold text-[--text-active]">
