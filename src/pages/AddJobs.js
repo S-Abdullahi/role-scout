@@ -4,14 +4,14 @@ const AddJobs = () => {
   return (
     <React.Fragment>
       <div className="bg-[--bg-card] rounded px-4 py-10  lg:p-10">
-        <h2 className="text-xl">Add Job</h2>
+        <h2 className="text-2xl mb-4">Add Job</h2>
         <form className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           <div className="flex flex-col">
             <label className="mb-1">Position</label>
             <input
               type="text"
               name="position"
-              className="rounded h-8 focus:outline-none px-3 focus:border focus:border-[--bg-icon] bg-[--text-active]"
+              className="input-field"
             />
           </div>
           <div className="flex flex-col">
@@ -19,7 +19,7 @@ const AddJobs = () => {
             <input
               type="text"
               name="company"
-              className="rounded h-8 focus:outline-none px-3 focus:border focus:border-[--bg-icon] bg-[--text-active]"
+              className="input-field"
             />
           </div>
           <div className="flex flex-col">
@@ -27,12 +27,12 @@ const AddJobs = () => {
             <input
               type="text"
               name="location"
-              className="rounded h-8 focus:outline-none px-3 focus:border focus:border-[--bg-icon] bg-[--text-active]"
+              className="input-field"
             />
           </div>
           <div className="flex flex-col">
             <label className="mb-1">Status</label>
-            <select className="rounded h-8 focus:outline-none px-3 cursor-pointer bg-[--text-active]">
+            <select className="input-field">
               <option>interview</option>
               <option>pending</option>
               <option>declined</option>
@@ -40,7 +40,7 @@ const AddJobs = () => {
           </div>
           <div className="flex flex-col">
             <label className="mb-1">Job Type</label>
-            <select className="rounded h-8 focus:outline-none px-3 cursor-pointer bg-[--text-active]">
+            <select className="input-field">
               <option>full-time</option>
               <option>Part-time</option>
               <option>remote</option>

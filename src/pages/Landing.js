@@ -5,7 +5,7 @@ import Logo from "../components/Logo";
 
 const Landing = () => {
   return (
-    <div className=" bg-[#194058] h-screen px-8 ">
+    <div className=" bg-[#194058] md:h-screen px-8 ">
       <div className="pt-10">
         <Logo/>
       </div>

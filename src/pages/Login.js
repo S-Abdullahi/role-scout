@@ -7,7 +7,7 @@ const Login = () => {
   return (
     <div className="h-screen w-screen bg-[--bg-main] flex justify-center">
       <div className="pt-16 w-[90%] sm:w-60% md:w-45% lg:max-w-[30%]">
-        <div className="bg-[--text-active]  t-[50%] rounded shadow-sm py-10 px-8">
+        <div className="bg-[--bg-card]  t-[50%] rounded shadow-sm py-10 px-8">
           <div className="flex justify-center">
             <Logo />
           </div>
@@ -24,7 +24,7 @@ const Login = () => {
                     type="name"
                     name="name"
                     id="name"
-                    className="rounded h-10 pl-2 outline-0 focus:border focus:border-[--card-accent-text]"
+                    className="input-field"
                   />
                 </div>
               )}
@@ -34,7 +34,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className="h-10 rounded pl-2 outline-0 focus:border focus:border-[--card-accent-text]"
+                  className="input-field"
                 />
               </div>
               <div className="flex flex-col">
@@ -43,11 +43,11 @@ const Login = () => {
                   type="password"
                   name="password"
                   id="password"
-                  className="h-10 rounded pl-2 outline-0 focus:border focus:border-[--card-accent-text]"
+                  className="input-field"
                 />
               </div>
               <Link to="/dashboard" className="flex mt-5">
-                <button className="bg-[--bg-icon] w-full h-10 rounded text-xl text-[--text-active] hover:bg-[--card-hover] hover:transition-all hover:ease-linear">
+                <button className="submit-button">
                   Submit
                 </button>
               </Link>

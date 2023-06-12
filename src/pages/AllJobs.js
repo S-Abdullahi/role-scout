@@ -6,7 +6,7 @@ const AllJobs = () => {
   return (
     <React.Fragment>
       <div className="bg-[--bg-card] rounded px-4 py-10  lg:p-10">
-        <h2 className="text-xl">Search Job</h2>
+        <h2 className="text-2xl mb-4">Search Job</h2>
         <form className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           <div className="flex flex-col">
             <label className="mb-1">Search</label>

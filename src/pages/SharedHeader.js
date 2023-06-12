@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Logo from "../components/Logo";
+import { Link } from "react-router-dom";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { RxPerson } from "react-icons/rx";
 import { HiMenuAlt1 } from "react-icons/hi";
@@ -25,9 +26,11 @@ const SharedHeader = () => {
             <p className="text-xl">Dashboard</p>
           </div>
           <div>
-            <button className="flex items-center gap-2 bg-[--bg-icon] rounded px-3 py-2">
-              <RxPerson /> Test User <IoMdArrowDropdown />
-            </button>
+            <Link to='/login'>
+              <button className="flex items-center gap-2 bg-[--bg-icon] rounded px-3 py-2">
+                <RxPerson /> Test User <IoMdArrowDropdown />
+              </button>
+            </Link>
           </div>
         </div>
       </div>
