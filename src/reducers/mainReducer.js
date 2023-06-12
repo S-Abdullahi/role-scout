@@ -8,7 +8,7 @@ const mainReducer = (state, action) =>{
             return {...state, openSideBar: !state.openSideBar}
             break;
         case CLOSE_SIDE_BAR:
-            return {...state, closeSideBar: false}
+            return {...state, openSideBar: false}
             break;
         default:
             throw new Error(`No matching ${actionType} - action type`)

@@ -29,18 +29,13 @@ const sideBarData = [
   },
 ];
 
-const SideBar = () => {
-  const { openSideBar } = useMainContext();
+const MobileSideBar = () => {
+  const { openSideBar, closeSideBar } = useMainContext();
   const [item, setItem] = useState('Stats')
   return (
     <div
-      className={`bg-[--bg-main] pl-3 hidden  md:pl-8 md:block py-8  ${
-        openSideBar
-          ? " transition-all duration-300 ease-linear col-span-2"
-          : " transition-all duration-300 ease-linear md:hidden"
-      } transition ease-linear duration-300`}
+      className={`bg-[--bg-main] h-screen  w-screen fixed pl-3 md:hidden  md:pl-8 py-8 ${ openSideBar ? 'left-0' : '-left-[200%]'} transition-all duration-300 ease-linear`}
     >
-      {/* <Logo /> */}
       <div>
         <ul>
           {sideBarData.map((data, index) => {
@@ -48,7 +43,9 @@ const SideBar = () => {
             return (
               <li
                 key={title}
-                onClick={()=>setItem(title)}
+                onClick={()=>{
+                    closeSideBar()
+                    setItem(title)}}
                 className={`mb-5 p-2 text-[--text-active] ${item === title && 'bg-[--bg-card] text-[--bg-main]'} hover:bg-[--bg-card] hover:text-[--bg-main] transition-all ease-linear duration-300`}
               >
                 <Link to={url} className="flex items-center gap-2 text-lg">
@@ -63,4 +60,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default MobileSideBar;
