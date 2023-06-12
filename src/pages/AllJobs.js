@@ -1,5 +1,6 @@
 import React from "react";
 import SingleJobCard from "../components/SingleJobCard";
+import Pagination from "../components/Pagination";
 
 const AllJobs = () => {
   return (
@@ -48,13 +49,16 @@ const AllJobs = () => {
           </button>
         </form>
       </div>
-      <div className="text-2xl mt-10 text-[--text-active]">1000 Jobs</div>
+      <div className="text-2xl mt-10 text-[--text-active]">1000 Jobs Found</div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
         <SingleJobCard />
         <SingleJobCard />
         <SingleJobCard />
         <SingleJobCard />
         <SingleJobCard />
+      </div>
+      <div className="flex justify-center mt-10 mb-3">
+        <Pagination/>
       </div>
     </React.Fragment>
   );
