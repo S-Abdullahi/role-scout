@@ -1,9 +1,36 @@
 import React, { useState } from "react";
 import Logo from "../components/Logo";
 import { Link } from "react-router-dom";
+import FormRow from "../components/FormRow";
+import { toast, ToastContainer } from "react-toastify";
+
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+  isUser: true,
+};
 
 const Login = () => {
   const [isRegister, setIsRegister] = useState(false);
+  const [values, setValues] = useState(initialState);
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setValues({ ...values, [name]: value });
+  };
+
+  function handleSubmit(e){
+    e.preventDefault();
+    const { name, email, password, isUser } = values;
+    if(!email || !password || (!isUser && !name)){
+        toast.error('please fill required fields')
+        return
+    } 
+    toast.success(`welcome ${name}`)
+  };
+
   return (
     <div className="h-screen w-screen bg-[--bg-main] flex justify-center">
       <div className="pt-16 w-[90%] sm:w-60% md:w-45% lg:max-w-[30%]">
@@ -13,52 +40,47 @@ const Login = () => {
           </div>
 
           <div className="text-center text-3xl mb-4 mt-6">
-            <h2>{isRegister ? "Register" : "Login"}</h2>
+            <h2>{values.isUser ? "Login" : "Register"}</h2>
           </div>
           <div>
             <form className="flex flex-col gap-4">
-              {isRegister && (
-                <div className="flex flex-col">
-                  <label htmlFor="name">Name</label>
-                  <input
-                    type="name"
-                    name="name"
-                    id="name"
-                    className="input-field"
-                  />
-                </div>
+              {!values.isUser && (
+                <FormRow
+                  type="text"
+                  name="name"
+                  labelText="name"
+                  handleChange={handleChange}
+                  value={values.name}
+                />
               )}
-              <div className="flex flex-col">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="input-field"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="password">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  className="input-field"
-                />
-              </div>
-              <Link to="/dashboard" className="flex mt-5">
-                <button className="submit-button">
-                  Submit
-                </button>
-              </Link>
+
+              <FormRow
+                type="email"
+                name="email"
+                labelText="email"
+                handleChange={handleChange}
+                value={values.email}
+              />
+              <FormRow
+                type="password"
+                name="password"
+                labelText="password"
+                handleChange={handleChange}
+                value={values.password}
+              />
+              {/* <Link to="/dashboard" onClick={handleSubmit} className="flex mt-5"> */}
+              <button className="submit-button" onClick={handleSubmit}>
+                Submit
+              </button>
+              {/* </Link> */}
               <div className="flex justify-center mt-2">
                 <p>
-                  Not a member yet?{" "}
+                  {values.isUser  ? 'Not a member? ' : 'Already a member'}
                   <span className="cursor-pointer text-[--card-title] font-bold hover:text-[--card-hover] hover:transition-all hover:ease-linear">
-                    {isRegister ? (
+                    {!values.isUser ? (
                       <span
                         onClick={() => {
-                          setIsRegister(!isRegister);
+                          setValues(!values.isUser);
                         }}
                       >
                         Login
@@ -66,7 +88,7 @@ const Login = () => {
                     ) : (
                       <span
                         onClick={() => {
-                          setIsRegister(!isRegister);
+                          setValues(!values.isUser);
                         }}
                       >
                         Register
