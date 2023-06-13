@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import Logo from "../components/Logo";
 import { Link } from "react-router-dom";
 import FormRow from "../components/FormRow";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { registerUser, loginUser } from "../features/user/userSlice";
 
 const initialState = {
   name: "",
@@ -12,8 +15,11 @@ const initialState = {
 };
 
 const Login = () => {
-  const [isRegister, setIsRegister] = useState(false);
   const [values, setValues] = useState(initialState);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {isLoading ,user} = useSelector((store)=>store.user)
+
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -28,8 +34,14 @@ const Login = () => {
         toast.error('please fill required fields')
         return
     } 
-    toast.success(`welcome ${name}`)
+    if(isUser){
+      dispatch(loginUser({email, password}))
+      return
+    }
+    dispatch(registerUser({name, email, password}))
   };
+
+  console.log(values.isUser)
 
   return (
     <div className="h-screen w-screen bg-[--bg-main] flex justify-center">
@@ -43,7 +55,7 @@ const Login = () => {
             <h2>{values.isUser ? "Login" : "Register"}</h2>
           </div>
           <div>
-            <form className="flex flex-col gap-4">
+            <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
               {!values.isUser && (
                 <FormRow
                   type="text"
@@ -69,29 +81,29 @@ const Login = () => {
                 value={values.password}
               />
               {/* <Link to="/dashboard" onClick={handleSubmit} className="flex mt-5"> */}
-              <button className="submit-button" onClick={handleSubmit}>
-                Submit
+              <button type="submit" className="submit-button">
+                {isLoading ? 'Loading...' : 'Submit'}
               </button>
               {/* </Link> */}
               <div className="flex justify-center mt-2">
                 <p>
-                  {values.isUser  ? 'Not a member? ' : 'Already a member'}
+                  {values.isUser  ? 'Not a member? ' : 'Already a member? '}
                   <span className="cursor-pointer text-[--card-title] font-bold hover:text-[--card-hover] hover:transition-all hover:ease-linear">
-                    {!values.isUser ? (
+                    {values.isUser ? (
                       <span
                         onClick={() => {
-                          setValues(!values.isUser);
+                          setValues(prev => ({...prev, isUser: !prev.isUser}));
                         }}
                       >
-                        Login
+                        Register
                       </span>
                     ) : (
                       <span
                         onClick={() => {
-                          setValues(!values.isUser);
+                          setValues(prev => ({...prev, isUser: !prev.isUser}));
                         }}
                       >
-                        Register
+                        Login
                       </span>
                     )}
                   </span>
