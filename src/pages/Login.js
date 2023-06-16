@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "../components/Logo";
 import { Link } from "react-router-dom";
 import FormRow from "../components/FormRow";
@@ -16,10 +16,9 @@ const initialState = {
 
 const Login = () => {
   const [values, setValues] = useState(initialState);
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const {isLoading ,user} = useSelector((store)=>store.user)
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoading, user } = useSelector((store) => store.user);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -27,21 +26,27 @@ const Login = () => {
     setValues({ ...values, [name]: value });
   };
 
-  function handleSubmit(e){
+  function handleSubmit(e) {
     e.preventDefault();
     const { name, email, password, isUser } = values;
-    if(!email || !password || (!isUser && !name)){
-        toast.error('please fill required fields')
-        return
-    } 
-    if(isUser){
-      dispatch(loginUser({email, password}))
-      return
+    if (!email || !password || (!isUser && !name)) {
+      toast.error("please fill required fields");
+      return;
     }
-    dispatch(registerUser({name, email, password}))
-  };
+    if (isUser) {
+      dispatch(loginUser({ email, password }));
+      return;
+    }
+    dispatch(registerUser({ name, email, password }));
+  }
 
-  console.log(values.isUser)
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
+    }
+  }, [user, navigate]);
 
   return (
     <div className="h-screen w-screen bg-[--bg-main] flex justify-center">
@@ -82,17 +87,20 @@ const Login = () => {
               />
               {/* <Link to="/dashboard" onClick={handleSubmit} className="flex mt-5"> */}
               <button type="submit" className="submit-button">
-                {isLoading ? 'Loading...' : 'Submit'}
+                {isLoading ? "Loading..." : "Submit"}
               </button>
               {/* </Link> */}
               <div className="flex justify-center mt-2">
                 <p>
-                  {values.isUser  ? 'Not a member? ' : 'Already a member? '}
+                  {values.isUser ? "Not a member? " : "Already a member? "}
                   <span className="cursor-pointer text-[--card-title] font-bold hover:text-[--card-hover] hover:transition-all hover:ease-linear">
                     {values.isUser ? (
                       <span
                         onClick={() => {
-                          setValues(prev => ({...prev, isUser: !prev.isUser}));
+                          setValues((prev) => ({
+                            ...prev,
+                            isUser: !prev.isUser,
+                          }));
                         }}
                       >
                         Register
@@ -100,7 +108,10 @@ const Login = () => {
                     ) : (
                       <span
                         onClick={() => {
-                          setValues(prev => ({...prev, isUser: !prev.isUser}));
+                          setValues((prev) => ({
+                            ...prev,
+                            isUser: !prev.isUser,
+                          }));
                         }}
                       >
                         Login
