@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Profile = () => {
+  const { isLoading, user } = useSelector((store) => store.user);
+  const [profileData, setProfileData] = useState({
+    name: user?.name || "",
+    lastName: user?.lastName || "",
+    email: user?.email || "",
+    location: user?.location || "",
+  });
+  const dispatch = useDispatch();
+
+  function handleChange (e){
+    const name = e.target.name
+    const value = e.target.value
+    setProfileData({...profileData, [name]: value})
+  }
+
+  console.log(profileData)
   return (
     <React.Fragment>
       <div className="bg-[--bg-card] rounded mt-10 px-4 py-10  lg:p-10">
@@ -11,6 +28,9 @@ const Profile = () => {
             <input
               type="text"
               name="name"
+              labelText="name"
+              value={profileData.name}
+              onChange={handleChange}
               className="input-field"
             />
           </div>
@@ -19,6 +39,9 @@ const Profile = () => {
             <input
               type="text"
               name="lastName"
+              labelText="Last Name"
+              value={profileData.lastName}
+              onChange={handleChange}
               className="input-field"
             />
           </div>
@@ -27,6 +50,9 @@ const Profile = () => {
             <input
               type="email"
               name="location"
+              labelText="email"
+              value={profileData.email}
+              onChange={handleChange}
               className="input-field"
             />
           </div>
@@ -35,12 +61,13 @@ const Profile = () => {
             <input
               type="text"
               name="location"
+              labelText="location"
+              value={profileData.location}
+              onChange={handleChange}
               className="input-field"
             />
           </div>
-          <button className="submit-button mt-6">
-            Submit
-          </button>
+          <button className="submit-button mt-6">Submit</button>
         </form>
       </div>
     </React.Fragment>
