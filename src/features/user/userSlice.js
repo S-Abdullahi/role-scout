@@ -39,6 +39,13 @@ export const loginUser = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState,
+  reducers: {
+    logOut: (state) => {
+      state.user = null;
+      removeUserFromLocalStorage();
+      toast.success("loging out");
+    },
+  },
   extraReducers: {
     [registerUser.pending]: (state) => {
       state.isLoading = true;
@@ -71,3 +78,4 @@ const userSlice = createSlice({
 
 console.log(userSlice);
 export default userSlice.reducer;
+export const {logOut} = userSlice.actions

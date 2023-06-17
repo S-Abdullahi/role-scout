@@ -12,6 +12,7 @@ import {
 } from "./pages";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -19,7 +20,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="login" element={<Login />}></Route>
-        <Route path="/" element={<SharedHeader />}>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <SharedHeader />
+            </ProtectedRoute>
+          }
+        >
           <Route path="add-jobs" element={<AddJobs />} />
           <Route path="all-jobs" element={<AllJobs />} />
           <Route path="dashboard" element={<Home />} />
@@ -27,7 +35,7 @@ function App() {
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>
-      <ToastContainer position='top-center'/>
+      <ToastContainer position="top-center" />
     </BrowserRouter>
   );
 }

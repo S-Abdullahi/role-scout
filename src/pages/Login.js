@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { registerUser, loginUser } from "../features/user/userSlice";
+import { Navigate } from "react-router-dom";
 
 const initialState = {
   name: "",
@@ -43,7 +44,8 @@ const Login = () => {
   useEffect(() => {
     if (user) {
       setTimeout(() => {
-        navigate("/dashboard");
+        Navigate('/dashboard')
+        // navigate("/dashboard");
       }, 2000);
     }
   }, [user, navigate]);
@@ -86,7 +88,15 @@ const Login = () => {
                 value={values.password}
               />
               {/* <Link to="/dashboard" onClick={handleSubmit} className="flex mt-5"> */}
-              <button type="submit" className="submit-button">
+              <button
+                type="submit"
+                className="submit-button"
+                onClick={() => {
+                  setTimeout(() => {
+                    user && navigate("/dashboard");
+                  }, 3000);
+                }}
+              >
                 {isLoading ? "Loading..." : "Submit"}
               </button>
               {/* </Link> */}
