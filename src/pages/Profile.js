@@ -28,7 +28,6 @@ const Profile = () => {
     return profileData
   }
 
-  console.log(profileData);
   return (
     <React.Fragment>
       <div className="bg-[--bg-card] rounded mt-10 px-4 py-10  lg:p-10">
