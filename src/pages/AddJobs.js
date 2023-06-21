@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormRow from "../components/FormRow";
 import { Form } from "react-router-dom";
 import FormSelect from "../components/FormSelect";
@@ -27,8 +27,8 @@ const AddJobs = () => {
     isEditing,
     location,
   } = useSelector((store) => store.job);
+  const {user} = useSelector((store) => store.user)
   const dispatch = useDispatch();
-  const [jobData, setJobData] = useState(initialJobData);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -42,11 +42,11 @@ const AddJobs = () => {
       toast.error("please fill a fields");
       return;
     }
-    console.log(position, company, status, location, jobType);
     dispatch(
       addJob({ position, company, jobLocation: location, status, jobType })
     );
   };
+
 
   return (
     <React.Fragment>

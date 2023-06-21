@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import customFetch from "../../utils/axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getUserFromLocalStorage } from "../../utils/localstorage";
 
 const initialState = {
   isLoading: false,
@@ -15,14 +16,13 @@ const initialState = {
 };
 
 export const addJob = createAsyncThunk("job/addJob", async (job, thunkAPI) => {
-  console.log("upper testing");
   try {
     const resp = await customFetch.post("/jobs", job, {
       headers: {
         authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
       },
     });
-    console.log("testing");
+    thunkAPI.dispatch(handleClear())
     return resp.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response);
