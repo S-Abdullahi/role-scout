@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SingleJobCard from "../components/SingleJobCard";
 import Pagination from "../components/Pagination";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllJobs } from "../features/allJob/allJobSlice";
+import Loading from "../components/Loading";
 
 const AllJobs = () => {
+  useEffect(() => {
+    dispatch(getAllJobs());
+  }, []);
+
+  const { isLoading, jobs } = useSelector((store) => store.allJobs);
+  console.log(jobs);
+  const dispatch = useDispatch();
+
+  if(isLoading){
+    return <Loading/>
+  }
+
   return (
     <React.Fragment>
       <div className="bg-[--bg-card] rounded px-4 py-10  lg:p-10">
@@ -51,14 +66,14 @@ const AllJobs = () => {
       </div>
       <div className="text-2xl mt-10 text-[--text-active]">1000 Jobs Found</div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-        <SingleJobCard />
-        <SingleJobCard />
-        <SingleJobCard />
-        <SingleJobCard />
-        <SingleJobCard />
+        {jobs?.map((job, index) => {
+          const { _id, status, position, jobType, jobLocation, company } = job;
+          console.log(job);
+          return <SingleJobCard key={index} {...job} />;
+        })}
       </div>
       <div className="flex justify-center mt-10 mb-3">
-        <Pagination/>
+        <Pagination />
       </div>
     </React.Fragment>
   );
