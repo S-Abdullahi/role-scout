@@ -2,8 +2,11 @@ import React from "react";
 import { BsFillSendFill } from "react-icons/bs";
 import { FaCalendarAlt } from "react-icons/fa";
 import { CgToolbox } from "react-icons/cg";
+import { useDispatch } from "react-redux";
+import { deleteJob } from "../features/allJob/allJobSlice";
 
-const SingleJobCard = ({status, position, jobType, jobLocation, company}) => {
+const SingleJobCard = ({_id,status, position, jobType, jobLocation, company}) => {
+  const dispatch = useDispatch()
   return (
     <div className="bg-[--bg-card] rounded py-5 shadow-md">
       <div className="pb-3 mb-3 border-b-[0.5px] border-[--bg-main]">
@@ -33,7 +36,7 @@ const SingleJobCard = ({status, position, jobType, jobLocation, company}) => {
         </div>
         <div className="flex gap-4 mt-4">
           <button className="bg-[--bg-main] px-3 py-1 rounded text-[--text-active]">Edit</button>
-          <button className="bg-[--bg-icon] px-3 py-1 rounded text-[--text-active]">Delete</button>
+          <button className="bg-[--bg-icon] px-3 py-1 rounded text-[--text-active]" onClick={()=>dispatch(deleteJob(_id))}>Delete</button>
         </div>
       </div>
     </div>

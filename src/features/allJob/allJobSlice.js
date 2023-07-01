@@ -24,6 +24,20 @@ export const getAllJobs = createAsyncThunk(
   }
 );
 
+export const deleteJob = createAsyncThunk("job/deleteJob", async (jobID, thunkApi) => {
+  try {
+    const resp = await customFetch.delete(`/jobs/${jobID}`, {
+      headers: {
+        authorization: `Bearer ${thunkApi.getState().user.user.token}`,
+      },
+    });
+    thunkApi.dispatch(getAllJobs());
+    return resp.data;
+  } catch (error) {
+    return thunkApi.rejectWithValue(error.response.data.msg);
+  }
+});
+
 const getAllJobsSlice = createSlice({
   name: "allJob",
   initialState,
@@ -32,11 +46,11 @@ const getAllJobsSlice = createSlice({
       state.isLoading = true;
     },
     [getAllJobs.fulfilled]: (state, { payload }) => {
-        state.isLoading = false, 
-      state.jobs = payload?.jobs
+      state.isLoading = false;
+      state.jobs = payload?.jobs;
     },
-    [getAllJobs.rejected]: (state, {payload}) => {
-    state.isLoading = false, 
+    [getAllJobs.rejected]: (state, { payload }) => {
+      state.isLoading = false;
       toast.error(payload);
     },
   },

@@ -14,8 +14,20 @@ const AllJobs = () => {
   console.log(jobs);
   const dispatch = useDispatch();
 
-  if(isLoading){
-    return <Loading/>
+  if (isLoading) {
+    return (
+      <div className="flex justify-center">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (jobs.length < 1) {
+    return (
+      <div>
+        <p>No job</p>
+      </div>
+    );
   }
 
   return (
@@ -64,11 +76,12 @@ const AllJobs = () => {
           </button>
         </form>
       </div>
-      <div className="text-2xl mt-10 text-[--text-active]">1000 Jobs Found</div>
+      <div className="text-2xl mt-10 text-[--text-active]">
+        {jobs?.length} Jobs Found
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
         {jobs?.map((job, index) => {
           const { _id, status, position, jobType, jobLocation, company } = job;
-          console.log(job);
           return <SingleJobCard key={index} {...job} />;
         })}
       </div>
