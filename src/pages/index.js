@@ -8,4 +8,14 @@ import Error from "./Error";
 import Login from "./Login";
 import Profile from "./Profile";
 
-export {AddJobs, AllJobs, Landing, Register, Home, SharedHeader, Error, Login, Profile}
+export {
+  AddJobs,
+  AllJobs,
+  Landing,
+  Register,
+  Home,
+  SharedHeader,
+  Error,
+  Login,
+  Profile,
+};

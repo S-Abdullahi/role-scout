@@ -41,12 +41,20 @@ const Login = () => {
     dispatch(registerUser({ name, email, password }));
   }
 
+  function login(){
+    if(user){
+      navigate("/dashboard") 
+    }
+    // return user && navigate("/dashboard");
+  }
+
   useEffect(() => {
     if (user) {
-      setTimeout(() => {
-        Navigate('/dashboard')
+      navigate("/dashboard")
+      // setTimeout(() => {
+      //   Navigate('/dashboard')
         // navigate("/dashboard");
-      }, 2000);
+      // }, 2000);
     }
   }, [user, navigate]);
 
@@ -92,9 +100,9 @@ const Login = () => {
                 type="submit"
                 className="submit-button"
                 onClick={() => {
-                  setTimeout(() => {
-                    user && navigate("/dashboard");
-                  }, 3000);
+                    login()
+                  // setTimeout(() => {
+                  // }, 3000);
                 }}
               >
                 {isLoading ? "Loading..." : "Submit"}
