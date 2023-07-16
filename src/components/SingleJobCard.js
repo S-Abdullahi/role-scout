@@ -3,15 +3,30 @@ import { BsFillSendFill } from "react-icons/bs";
 import { FaCalendarAlt } from "react-icons/fa";
 import { CgToolbox } from "react-icons/cg";
 import { useDispatch } from "react-redux";
-import { deleteJob } from "../features/allJob/allJobSlice";
+import { useNavigate } from "react-router-dom";
+// import { deleteJob } from "../features/allJob/allJobSlice";
+import moment from "moment";
+import { deleteJob, setEditJob } from "../features/job/jobSlice";
 
-const SingleJobCard = ({_id,status, position, jobType, jobLocation, company}) => {
-  const dispatch = useDispatch()
+const SingleJobCard = ({
+  _id,
+  status,
+  position,
+  jobType,
+  jobLocation,
+  company,
+  createdAt,
+}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <div className="bg-[--bg-card] rounded py-5 shadow-md">
       <div className="pb-3 mb-3 border-b-[0.5px] border-[--bg-main]">
         <div className="flex px-4 gap-10">
-          <div className="bg-[--bg-main] text-[--text-inactive] w-10 flex items-center justify-center rounded text-2xl font-bold">{company.split('')[0]}</div>
+          <div className="bg-[--bg-main] text-[--text-inactive] w-10 flex items-center justify-center rounded text-2xl font-bold">
+            {company.split("")[0]}
+          </div>
           <div>
             <p className="text-[--text-active]">{position}</p>
             <p className="text-sm text-[--text-inactive]">{company}</p>
@@ -25,18 +40,50 @@ const SingleJobCard = ({_id,status, position, jobType, jobLocation, company}) =>
         </div>
         <div className="flex items-center gap-3 text-[--text-active]">
           <FaCalendarAlt className="text-[--card-hover]" />
-          <span>Dec 27th, 2021</span>
+          <span>{moment(createdAt).format("MMM Do YY")} </span>
         </div>
         <div className="flex items-center gap-3 text-[--text-active]">
           <CgToolbox className="text-[--card-hover]" />
           <span>{jobType}</span>
         </div>
         <div>
-          <span className="bg-red-300 px-3 py-1 rounded">{status}</span>
+          <span
+            className={`${
+              status === "interview"
+                ? "bg-green-300"
+                : status === "pending"
+                ? "bg-yellow-300"
+                : "bg-red-300"
+            } px-3 py-1 rounded`}
+          >
+            {status}
+          </span>
         </div>
         <div className="flex gap-4 mt-4">
-          <button className="bg-[--bg-main] px-3 py-1 rounded text-[--text-active]">Edit</button>
-          <button className="bg-[--bg-icon] px-3 py-1 rounded text-[--text-active]" onClick={()=>dispatch(deleteJob(_id))}>Delete</button>
+          <button
+            className="bg-[--bg-main] px-3 py-1 rounded text-[--text-active]"
+            onClick={() => {
+              navigate("/add-jobs");
+              dispatch(
+                setEditJob({
+                  editId: _id,
+                  status,
+                  position,
+                  jobType,
+                  jobLocation,
+                  company,
+                })
+              );
+            }}
+          >
+            Edit
+          </button>
+          <button
+            className="bg-[--bg-icon] px-3 py-1 rounded text-[--text-active]"
+            onClick={() => dispatch(deleteJob(_id))}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>

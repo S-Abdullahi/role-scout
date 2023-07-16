@@ -16,7 +16,6 @@ export const getAllJobs = createAsyncThunk(
           authorization: `Bearer ${thunkApi.getState().user.user.token}`,
         },
       });
-      console.log(resp.data);
       return resp.data;
     } catch (error) {
       thunkApi.rejectWithValue(error.response.data.msg);
@@ -24,23 +23,19 @@ export const getAllJobs = createAsyncThunk(
   }
 );
 
-export const deleteJob = createAsyncThunk("job/deleteJob", async (jobID, thunkApi) => {
-  try {
-    const resp = await customFetch.delete(`/jobs/${jobID}`, {
-      headers: {
-        authorization: `Bearer ${thunkApi.getState().user.user.token}`,
-      },
-    });
-    thunkApi.dispatch(getAllJobs());
-    return resp.data;
-  } catch (error) {
-    return thunkApi.rejectWithValue(error.response.data.msg);
-  }
-});
+
 
 const getAllJobsSlice = createSlice({
   name: "allJob",
   initialState,
+  reducers: {
+    showLoading(state){
+      state.isLoading = true
+    },
+    hideLoading(state){
+      state.isLoading = false
+    }
+  },
   extraReducers: {
     [getAllJobs.pending]: (state) => {
       state.isLoading = true;
@@ -56,4 +51,5 @@ const getAllJobsSlice = createSlice({
   },
 });
 
+export const {showLoading, hideLoading} = getAllJobsSlice.actions
 export default getAllJobsSlice.reducer;

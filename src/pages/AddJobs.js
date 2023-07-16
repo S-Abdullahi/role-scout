@@ -5,7 +5,7 @@ import FormSelect from "../components/FormSelect";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { handleInputChange, handleClear } from "../features/job/jobSlice";
-import { addJob } from "../features/job/jobSlice";
+import { addJob, editJob } from "../features/job/jobSlice";
 
 const initialJobData = {
   position: "",
@@ -17,6 +17,7 @@ const initialJobData = {
 
 const AddJobs = () => {
   const {
+    
     isLoading,
     position,
     company,
@@ -26,6 +27,7 @@ const AddJobs = () => {
     jobTypeOptions,
     isEditing,
     location,
+    editId
   } = useSelector((store) => store.job);
   const {user} = useSelector((store) => store.user)
   const dispatch = useDispatch();
@@ -41,6 +43,20 @@ const AddJobs = () => {
     if (!position || !company || !location || !status || !jobType) {
       toast.error("please fill a fields");
       return;
+    }
+    
+    if(isEditing){
+      dispatch(editJob({
+        jobId: editId,
+        job: {
+          position,
+          company, 
+          jobLocation: location,
+          status,
+          jobType
+        }
+      }))
+      return
     }
     dispatch(
       addJob({ position, company, jobLocation: location, status, jobType })

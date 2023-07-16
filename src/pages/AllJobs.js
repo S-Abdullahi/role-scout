@@ -4,6 +4,7 @@ import Pagination from "../components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllJobs } from "../features/allJob/allJobSlice";
 import Loading from "../components/Loading";
+import {showLoading, hideLoading} from '../features/allJob/allJobSlice'
 
 const AllJobs = () => {
   useEffect(() => {
@@ -11,7 +12,6 @@ const AllJobs = () => {
   }, []);
 
   const { isLoading, jobs } = useSelector((store) => store.allJobs);
-  console.log(jobs);
   const dispatch = useDispatch();
 
   if (isLoading) {
@@ -22,7 +22,7 @@ const AllJobs = () => {
     );
   }
 
-  if (jobs.length < 1) {
+  if (jobs?.length < 1) {
     return (
       <div>
         <p>No job</p>
