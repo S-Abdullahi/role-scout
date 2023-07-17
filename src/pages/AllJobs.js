@@ -4,7 +4,7 @@ import Pagination from "../components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllJobs } from "../features/allJob/allJobSlice";
 import Loading from "../components/Loading";
-import {showLoading, hideLoading} from '../features/allJob/allJobSlice'
+import { showLoading, hideLoading } from "../features/allJob/allJobSlice";
 
 const AllJobs = () => {
   useEffect(() => {
@@ -14,21 +14,21 @@ const AllJobs = () => {
   const { isLoading, jobs } = useSelector((store) => store.allJobs);
   const dispatch = useDispatch();
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center">
-        <Loading />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex justify-center">
+  //       <Loading />
+  //     </div>
+  //   );
+  // }
 
-  if (jobs?.length < 1) {
-    return (
-      <div>
-        <p>No job</p>
-      </div>
-    );
-  }
+  // if (jobs?.length < 1) {
+  //   return (
+  //     <div>
+  //       <p>No job</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <React.Fragment>
@@ -76,18 +76,27 @@ const AllJobs = () => {
           </button>
         </form>
       </div>
-      <div className="text-2xl mt-10 text-[--text-active]">
-        {jobs?.length} Jobs Found
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-        {jobs?.map((job, index) => {
-          const { _id, status, position, jobType, jobLocation, company } = job;
-          return <SingleJobCard key={index} {...job} />;
-        })}
-      </div>
-      <div className="flex justify-center mt-10 mb-3">
-        <Pagination />
-      </div>
+      {isLoading ? (
+        <div className="flex justify-center">
+          <Loading />
+        </div>
+      ) : jobs?.length < 1 ? (
+        <div className="text-xl lg:text-4xl text-white text-center mt-4">No job Found</div>
+      ) : (
+        <div>
+          <div className="text-2xl mt-10 text-[--text-active]">
+            {jobs?.length} Jobs Found
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+            {jobs?.map((job, index) => {
+              return <SingleJobCard key={index} {...job} />;
+            })}
+          </div>
+          <div className="flex justify-center mt-10 mb-3">
+            <Pagination />
+          </div>
+        </div>
+      )}
     </React.Fragment>
   );
 };

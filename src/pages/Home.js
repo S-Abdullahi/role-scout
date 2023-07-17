@@ -1,43 +1,41 @@
 import React from "react";
 import { BsFillCalendarCheckFill, BsBriefcaseFill } from "react-icons/bs";
-import {FaBug} from 'react-icons/fa'
+import { FaBug } from "react-icons/fa";
+import StatCard from "../components/StatCard";
+import { getStats } from "../features/allJob/allJobSlice";
+import { useDispatch, useSelector } from "react-redux";
+
+
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const {defaultStats}  = useSelector((store)=>store.allJobs)
+
+  const dashboardStat = [
+    {
+      title: "Pending Application",
+      icon: <BsBriefcaseFill className="text-lg text-[--card-title]" />,
+      value: defaultStats?.pending,
+    },
+    {
+      title: "Interview Application",
+      icon: <BsFillCalendarCheckFill className="text-lg text-[--card-title]" />,
+      value: defaultStats?.interview,
+    },
+    {
+      title: "Declined Application",
+      icon: <FaBug className="text-[--card-title] text-lg" />,
+      value: defaultStats?.declined,
+    },
+  ];
+  React.useEffect(() => {
+    dispatch(getStats());
+  }, []);
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
-      <div className="md:col-span-4 p-3 rounded bg-[--bg-card]">
-        <div className="flex justify-between mb-10">
-          <span className="text-4xl font-semibold text-[--text-active]">
-            24
-          </span>
-          <div className="bg-[--bg-icon] rounded-full flex justify-center items-center p-3">
-            <BsBriefcaseFill className="text-lg text-[--card-title]" />
-          </div>
-        </div>
-        <p className="text-[--text-inactive]">Pending Application</p>
-      </div>
-      <div className=" md:col-span-4 bg-gradient-to-r from-[--bg-icon] to-[--card-hover] p-3 rounded">
-        <div className="flex justify-between mb-10">
-          <span className="text-4xl font-semibold text-[--text-active]">
-            24
-          </span>
-          <div className="rounded-full flex justify-center items-center p-3 bg-[--bg-icon]">
-            <BsFillCalendarCheckFill className="text-lg text-[--card-title]"/>
-          </div>
-        </div>
-        <p className="text-[--text-inactive]">Interview Schedule</p>
-      </div>
-      <div className=" md:col-span-4 p-3 rounded bg-[--bg-card]">
-        <div className="flex justify-between mb-10">
-          <span className="text-4xl font-semibold text-[--text-active]">
-            24
-          </span>
-          <div className="bg-[--bg-icon] rounded-full flex justify-center items-center p-3">
-            <FaBug className="text-[--card-title] text-lg"/>
-          </div>
-        </div>
-        <p className="text-[--text-inactive]">Pending Application</p>
-      </div>
+      {dashboardStat?.map((item, index) => {
+        return <StatCard {...item} key={`${item.title}-${index}`} />;
+      })}
     </div>
   );
 };
