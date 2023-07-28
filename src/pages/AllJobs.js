@@ -5,14 +5,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllJobs } from "../features/allJob/allJobSlice";
 import Loading from "../components/Loading";
 import { showLoading, hideLoading } from "../features/allJob/allJobSlice";
+import FormRow from "../components/FormRow";
+import FormSelect from "../components/FormSelect";
 
 const AllJobs = () => {
   useEffect(() => {
     dispatch(getAllJobs());
   }, []);
 
-  const { isLoading, jobs } = useSelector((store) => store.allJobs);
+  const {
+    isLoading,
+    jobs,
+    search,
+    searchStatus,
+    searchType,
+    sort,
+    sortOptions,
+  } = useSelector((store) => store.allJobs);
+  const { statusOptions, jobTypeOptions } = useSelector((store) => store.job);
   const dispatch = useDispatch();
+
+  function handleSearch() {}
+
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
 
   // if (isLoading) {
   //   return (
@@ -35,42 +52,34 @@ const AllJobs = () => {
       <div className="bg-[--bg-card] rounded px-4 py-10  lg:p-10">
         <h2 className="text-2xl mb-4">Search Job</h2>
         <form className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          <div className="flex flex-col">
-            <label className="mb-1">Search</label>
-            <input
-              type="text"
-              name="name"
-              className="rounded h-8 focus:outline-none px-3 focus:border focus:border-[--bg-icon]"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label className="mb-1">Status</label>
-            <select className="rounded h-8 focus:outline-none px-3 cursor-pointer">
-              <option>all</option>
-              <option>interview</option>
-              <option>pending</option>
-              <option>declined</option>
-            </select>
-          </div>
-          <div className="flex flex-col">
-            <label className="mb-1">Type</label>
-            <select className="rounded h-8 focus:outline-none px-3 cursor-pointer">
-              <option>all</option>
-              <option>full-time</option>
-              <option>Part-time</option>
-              <option>remote</option>
-              <option>Internship</option>
-            </select>
-          </div>
-          <div className="flex flex-col">
-            <label className="mb-1">Sort</label>
-            <select className="rounded  h-8 focus:outline-none focus:border focus:border-[--bg-icon] px-3 cursor-pointer">
-              <option>latest</option>
-              <option>oldest</option>
-              <option>a-z</option>
-              <option>z-a</option>
-            </select>
-          </div>
+          <FormRow
+            type="text"
+            name="search"
+            value={search}
+            labelText="Search"
+            handleChange={handleSearch}
+          />
+          <FormSelect
+            labelText="Status"
+            options={statusOptions}
+            name="searchStatus"
+            handleChange={handleSearch}
+            value={searchStatus}
+          />
+          <FormSelect
+            labelText="Type"
+            options={jobTypeOptions}
+            name="searchType"
+            handleChange={handleSearch}
+            value={searchType}
+          />
+          <FormSelect
+            labelText="Sort"
+            name="sort"
+            options={sortOptions}
+            handleChange={handleSearch}
+            value={sort}
+          />
           <button className="bg-[--bg-icon] rounded text-[--text-active] mt-7 h-8">
             Clear Filters
           </button>
@@ -81,7 +90,9 @@ const AllJobs = () => {
           <Loading />
         </div>
       ) : jobs?.length < 1 ? (
-        <div className="text-xl lg:text-4xl text-white text-center mt-4">No job Found</div>
+        <div className="text-xl lg:text-4xl text-white text-center mt-4">
+          No job Found
+        </div>
       ) : (
         <div>
           <div className="text-2xl mt-10 text-[--text-active]">

@@ -7,28 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import AreaChartDisplay from "../components/AreaChart";
 import BarChartDisplay from "../components/BarChart";
 
-const dummyData = [
-  {
-    date: 'July 2023',
-    count: 2
-  },
-  {
-    date: 'August 2023',
-    count: 5
-  },
-  {
-    date: 'September 2023',
-    count: 1
-  },
-  {
-    date: 'October 2023',
-    count: 9
-  }
-]
-
 const Home = () => {
   const dispatch = useDispatch();
-  const { defaultStats, monthlyApplications } = useSelector((store) => store.allJobs);
+  const { defaultStats, monthlyApplications } = useSelector(
+    (store) => store.allJobs
+  );
+  console.log('monthly application',  monthlyApplications)
   const [barChart, setBarChart] = useState(false);
 
   const dashboardStat = [
@@ -58,10 +42,23 @@ const Home = () => {
           return <StatCard {...item} key={`${item.title}-${index}`} />;
         })}
       </div>
-      <p onClick={() => setBarChart(!barChart)} className="text-3xl text-white text-center my-4 cursor-pointer">
-        {barChart ? "Bar Chart" : "Area Chart"}
-      </p>
-      <div className="w-full h-1/2">{barChart ? <BarChartDisplay data={dummyData}/> : <AreaChartDisplay data={dummyData}/>}</div>
+      {monthlyApplications.length > 0 && (
+        <>
+          <p
+            onClick={() => setBarChart(!barChart)}
+            className="text-3xl text-white text-center my-4 cursor-pointer"
+          >
+            {barChart ? "Bar Chart" : "Area Chart"}
+          </p>
+          <div className="w-full h-1/2">
+            {barChart ? (
+              <BarChartDisplay data={monthlyApplications} />
+            ) : (
+              <AreaChartDisplay data={monthlyApplications} />
+            )}
+          </div>
+        </>
+      )}
     </>
   );
 };

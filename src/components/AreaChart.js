@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux'
 import { ResponsiveContainer, AreaChart, CartesianGrid,XAxis,YAxis,Tooltip, Area } from 'recharts'
 
 const AreaChartDisplay = ({data}) => {
-    const {monthlyApplication} = useSelector((store)=>store.allJobs)
-    console.log(data)
   return (
     <ResponsiveContainer>
         <AreaChart data={data} margin={{top: 50}}>

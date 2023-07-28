@@ -2,11 +2,20 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import customFetch from "../../utils/axios";
 import { toast } from "react-toastify";
 
+const initialFilterState = {
+  search: '',
+  searchStatus: 'all',
+  searchType: 'all',
+  sort: 'latest',
+  sortOptions: ['latest', 'oldest', 'a-z', 'z-a']
+}
+
 const initialState = {
   isLoading: false,
   jobs: [],
   defaultStats: {},
-  monthlyApplications: []
+  monthlyApplications: [],
+  ...initialFilterState
 };
 
 export const getAllJobs = createAsyncThunk(
