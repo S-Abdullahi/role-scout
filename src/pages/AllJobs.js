@@ -4,7 +4,12 @@ import Pagination from "../components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllJobs } from "../features/allJob/allJobSlice";
 import Loading from "../components/Loading";
-import { showLoading, hideLoading } from "../features/allJob/allJobSlice";
+import {
+  showLoading,
+  hideLoading,
+  searchState,
+  clearFilter
+} from "../features/allJob/allJobSlice";
 import FormRow from "../components/FormRow";
 import FormSelect from "../components/FormSelect";
 
@@ -25,10 +30,13 @@ const AllJobs = () => {
   const { statusOptions, jobTypeOptions } = useSelector((store) => store.job);
   const dispatch = useDispatch();
 
-  function handleSearch() {}
+  function handleSearch(e) {
+    dispatch(searchState({ name: e.target.name, value: e.target.value }));
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
+    dispatch(clearFilter())
   }
 
   // if (isLoading) {
@@ -61,14 +69,14 @@ const AllJobs = () => {
           />
           <FormSelect
             labelText="Status"
-            options={statusOptions}
+            options={['all',...statusOptions]}
             name="searchStatus"
             handleChange={handleSearch}
             value={searchStatus}
           />
           <FormSelect
             labelText="Type"
-            options={jobTypeOptions}
+            options={['all', ...jobTypeOptions]}
             name="searchType"
             handleChange={handleSearch}
             value={searchType}
@@ -80,7 +88,7 @@ const AllJobs = () => {
             handleChange={handleSearch}
             value={sort}
           />
-          <button className="bg-[--bg-icon] rounded text-[--text-active] mt-7 h-8">
+          <button className="bg-[--bg-icon] rounded text-[--text-active] mt-7 h-8" disabled={isLoading} onClick={handleSubmit}>
             Clear Filters
           </button>
         </form>
@@ -96,7 +104,7 @@ const AllJobs = () => {
       ) : (
         <div>
           <div className="text-2xl mt-10 text-[--text-active]">
-            {jobs?.length} Jobs Found
+            {jobs?.length} Job{jobs.length > 1 ? 's' : ''} Found
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
             {jobs?.map((job, index) => {
@@ -104,7 +112,8 @@ const AllJobs = () => {
             })}
           </div>
           <div className="flex justify-center mt-10 mb-3">
-            <Pagination />
+            {jobs.length > 5 && <Pagination />}
+            
           </div>
         </div>
       )}
