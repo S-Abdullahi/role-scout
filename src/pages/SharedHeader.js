@@ -22,7 +22,7 @@ const SharedHeader = () => {
   return (
     <React.Fragment>
       <div className="">
-        <div className="flex items-center justify-between bg-[--bg-main] text-[--text-active] px-4 md:px-8 py-3 col-start-1 col-end-[-1]">
+        <div className="flex items-center justify-between bg-[--bg-main] text-[--text-active] px-4 md:px-8 py-3 col-start-1 col-end-[-1] w-full">
           <div>
             <HiMenuAlt1
               className="text-4xl cursor-pointer"

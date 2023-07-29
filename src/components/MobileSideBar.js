@@ -34,7 +34,7 @@ const MobileSideBar = () => {
   const [item, setItem] = useState('Stats')
   return (
     <div
-      className={`bg-[--bg-main] h-screen  w-screen fixed pl-3 md:hidden  md:pl-8 py-8 ${ openSideBar ? 'left-0' : '-left-[200%]'} transition-all duration-300 ease-linear`}
+      className={`bg-[--bg-main] z-10 top-0 h-screen  w-screen fixed pl-3 md:hidden  md:pl-8 py-8 ${ openSideBar ? 'left-0' : '-left-[200%]'} transition-all duration-300 ease-linear`}
     >
       <div>
         <ul>
