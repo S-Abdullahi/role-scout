@@ -3,12 +3,12 @@ import customFetch from "../../utils/axios";
 import { toast } from "react-toastify";
 
 const initialFilterState = {
-  search: '',
-  searchStatus: 'all',
-  searchType: 'all',
-  sort: 'latest',
-  sortOptions: ['latest', 'oldest', 'a-z', 'z-a']
-}
+  search: "",
+  searchStatus: "all",
+  searchType: "all",
+  sort: "latest",
+  sortOptions: ["latest", "oldest", "a-z", "z-a"],
+};
 
 const initialState = {
   isLoading: false,
@@ -18,19 +18,24 @@ const initialState = {
   noOfPages: 1,
   totalJobs: 0,
   page: 1,
-  ...initialFilterState
+  ...initialFilterState,
 };
+console.log(initialState)
 
 export const getAllJobs = createAsyncThunk(
   "allJob/getAllJobs",
   async (_, thunkApi) => {
     try {
-      const resp = await customFetch.get("/jobs", {
+      const {page, search, searchStatus, searchType, sort} = thunkApi.getState().allJobs
+      let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}&page=${page}`
+      if(search){
+        url = url + `&search=${search}`
+      }
+      const resp = await customFetch.get(url, {
         headers: {
           authorization: `Bearer ${thunkApi.getState().user.user.token}`,
         },
       });
-      console.log(resp.data);
       return resp.data;
     } catch (error) {
       thunkApi.rejectWithValue(error.response.data.msg);
@@ -64,12 +69,17 @@ const getAllJobsSlice = createSlice({
     hideLoading(state) {
       state.isLoading = false;
     },
-    searchState(state, {payload}){
-      state[payload.name] = payload.value
+    searchState(state, { payload }) {
+      state.page = 1
+      state[payload.name] = payload.value;
     },
-    clearFilter(state){
-      return {...state, ...initialFilterState}
-    }
+    clearFilter(state) {
+      return { ...state, ...initialFilterState };
+    },
+    changePage(state, { payload }) {
+      console.log(payload)
+      state.page = payload;
+    },
   },
   extraReducers: {
     [getAllJobs.pending]: (state) => {
@@ -85,12 +95,13 @@ const getAllJobsSlice = createSlice({
       state.isLoading = false;
       toast.error(payload);
     },
-    [getStats.fulfilled]: (state, {payload}) =>{
-      state.defaultStats = payload?.defaultStats
-      state.monthlyApplications = payload?.monthlyApplications
-    }
+    [getStats.fulfilled]: (state, { payload }) => {
+      state.defaultStats = payload?.defaultStats;
+      state.monthlyApplications = payload?.monthlyApplications;
+    },
   },
 });
 
-export const { showLoading, hideLoading, searchState, clearFilter } = getAllJobsSlice.actions;
+export const { showLoading, hideLoading, searchState, clearFilter, changePage } =
+  getAllJobsSlice.actions;
 export default getAllJobsSlice.reducer;

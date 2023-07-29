@@ -14,9 +14,7 @@ import FormRow from "../components/FormRow";
 import FormSelect from "../components/FormSelect";
 
 const AllJobs = () => {
-  useEffect(() => {
-    dispatch(getAllJobs());
-  }, []);
+ 
 
   const {
     isLoading,
@@ -26,6 +24,7 @@ const AllJobs = () => {
     searchType,
     sort,
     sortOptions,
+    page
   } = useSelector((store) => store.allJobs);
   const { statusOptions, jobTypeOptions } = useSelector((store) => store.job);
   const dispatch = useDispatch();
@@ -38,6 +37,10 @@ const AllJobs = () => {
     e.preventDefault();
     dispatch(clearFilter())
   }
+
+  useEffect(() => {
+    dispatch(getAllJobs());
+  }, [page, search, searchType, searchStatus, sort]);
 
   // if (isLoading) {
   //   return (
@@ -111,8 +114,8 @@ const AllJobs = () => {
               return <SingleJobCard key={index} {...job} />;
             })}
           </div>
-          <div className="flex justify-center mt-10 mb-3">
-            {jobs.length > 5 && <Pagination />}
+          <div className="flex justify-center mt-10 mb-3 text-white">
+            {jobs?.length >= 1 && <Pagination />}
             
           </div>
         </div>
