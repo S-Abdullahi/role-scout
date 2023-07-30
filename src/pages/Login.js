@@ -59,9 +59,9 @@ const Login = () => {
   }, [user, navigate]);
 
   return (
-    <div className="h-screen w-screen bg-[--bg-main] flex justify-center">
-      <div className="pt-16 w-[90%] sm:w-60% md:w-45% lg:max-w-[30%]">
-        <div className="bg-[--bg-card]  t-[50%] rounded shadow-sm py-10 px-8">
+    <div className="h-screen w-screen bg-[--bg-main] flex justify-center"> 
+      <div className="pt-16">
+        <div className="bg-[--bg-card] sm:w-[400px] t-[50%] rounded shadow-sm py-10 px-8">
           <div className="flex justify-center">
             <Logo />
           </div>
