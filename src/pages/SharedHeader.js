@@ -10,7 +10,7 @@ import MobileSideBar from "../components/MobileSideBar";
 import { useMainContext } from "../context/mainContext";
 import { useSelector } from "react-redux";
 import { getFirstName } from "../utils/helper";
-import { logOut } from "../features/user/userSlice";
+import { logOut, clearStore } from "../features/user/userSlice";
 import { useDispatch } from "react-redux";
 
 const SharedHeader = () => {
@@ -48,7 +48,7 @@ const SharedHeader = () => {
             {isOpenLogout && (
               <button
                 className="bg-[--bg-icon] rounded px-3 py-2 absolute top-12 w-full"
-                onClick={() => dispatch(logOut())}
+                onClick={() => dispatch(clearStore("Logging out..."))}
               >
                 Logout
               </button>

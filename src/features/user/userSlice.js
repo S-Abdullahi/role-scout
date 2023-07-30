@@ -5,34 +5,39 @@ import {
   getUserFromLocalStorage,
   removeUserFromLocalStorage,
 } from "../../utils/localstorage";
-import { registerLoginUserThunk , updateUserThunk} from "./userThunk";
+import {
+  registerLoginUserThunk,
+  updateUserThunk,
+  clearStoreThunk,
+} from "./userThunk";
 
 const initialState = {
   isLoading: false,
   user: getUserFromLocalStorage(),
 };
 
-
 export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (user, thunkAPI) => {
-    return registerLoginUserThunk('/auth/register',  user, thunkAPI)
+    return registerLoginUserThunk("/auth/register", user, thunkAPI);
   }
 );
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (user, thunkAPI) => {
-    return registerLoginUserThunk('/auth/login', user, thunkAPI)
+    return registerLoginUserThunk("/auth/login", user, thunkAPI);
   }
 );
 
 export const updateUser = createAsyncThunk(
   "user/updateUser",
   async (user, thunkAPI) => {
-    return updateUserThunk('/auth/updateUser', user, thunkAPI)
+    return updateUserThunk("/auth/updateUser", user, thunkAPI);
   }
 );
+
+export const clearStore = createAsyncThunk("user/clearStore", clearStoreThunk);
 
 const userSlice = createSlice({
   name: "user",
@@ -71,20 +76,22 @@ const userSlice = createSlice({
       state.isLoading = false;
       toast.error(payload);
     },
-    [updateUser.pending]: (state) =>{
-      state.isLoading = true
-    }
-   ,
-    [updateUser.fulfilled]: (state, {payload})=>{
-      const {user} = payload
-      state.isLoading = false
-      state.user = user
-      setUserToLocalStorage(user)
-      toast.success('Profile Updated Successfully')
+    [updateUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [updateUser.fulfilled]: (state, { payload }) => {
+      const { user } = payload;
+      state.isLoading = false;
+      state.user = user;
+      setUserToLocalStorage(user);
+      toast.success("Profile Updated Successfully");
     },
     [updateUser.rejected]: (state, { payload }) => {
       state.isLoading = false;
-      toast.error(payload)
+      toast.error(payload);
+    },
+    [clearStore.rejected]: ()=>{
+      toast.error('There was an error...')
     }
   },
 });
