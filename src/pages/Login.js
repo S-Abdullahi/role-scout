@@ -41,8 +41,6 @@ const Login = () => {
     dispatch(registerUser({ name, email, password }));
   }
 
-  user && console.log("user found")
-  console.log('user', user)
   useEffect(() => {
     if (user) {
       setTimeout(() => {
@@ -51,12 +49,6 @@ const Login = () => {
     }
   }, [user, navigate]);
 
-  function login() {
-    if (user) {
-      navigate("/dashboard");
-    }
-    // return user && navigate("/dashboard");
-  }
 
   return (
     <div className="h-screen w-screen bg-[--bg-main] flex justify-center">
@@ -99,12 +91,6 @@ const Login = () => {
               <button
                 type="submit"
                 className="submit-button"
-                onClick={() => {
-                  setTimeout(() => {
-                    console.log("testing...");
-                    user && console.log("user found");
-                  }, 3000);
-                }}
               >
                 {isLoading ? "Loading..." : "Submit"}
               </button>
