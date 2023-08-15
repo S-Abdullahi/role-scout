@@ -41,25 +41,25 @@ const Login = () => {
     dispatch(registerUser({ name, email, password }));
   }
 
-  function login(){
-    if(user){
-      navigate("/dashboard") 
+  user && console.log("user found")
+  console.log('user', user)
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
+    }
+  }, [user, navigate]);
+
+  function login() {
+    if (user) {
+      navigate("/dashboard");
     }
     // return user && navigate("/dashboard");
   }
 
-  useEffect(() => {
-    if (user) {
-      navigate("/dashboard")
-      // setTimeout(() => {
-      //   Navigate('/dashboard')
-        // navigate("/dashboard");
-      // }, 2000);
-    }
-  }, [user, navigate]);
-
   return (
-    <div className="h-screen w-screen bg-[--bg-main] flex justify-center"> 
+    <div className="h-screen w-screen bg-[--bg-main] flex justify-center">
       <div className="pt-16">
         <div className="bg-[--bg-card] sm:w-[400px] t-[50%] rounded shadow-sm py-10 px-8">
           <div className="flex justify-center">
@@ -100,9 +100,10 @@ const Login = () => {
                 type="submit"
                 className="submit-button"
                 onClick={() => {
-                    login()
-                  // setTimeout(() => {
-                  // }, 3000);
+                  setTimeout(() => {
+                    console.log("testing...");
+                    user && console.log("user found");
+                  }, 3000);
                 }}
               >
                 {isLoading ? "Loading..." : "Submit"}

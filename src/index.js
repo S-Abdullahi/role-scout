@@ -5,15 +5,18 @@ import App from "./App";
 import { MainProvider } from "./context/mainContext";
 import { Provider } from "react-redux";
 import store from "./store";
+import { MantineProvider } from "@mantine/core";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <MainProvider>
-        <App />
-      </MainProvider>
-    </Provider>
+    <MainProvider >
+      <Provider store={store}>
+        <MainProvider>
+          <App />
+        </MainProvider>
+      </Provider>
+    </MainProvider>
   </React.StrictMode>
 );
 

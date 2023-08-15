@@ -12,7 +12,6 @@ const Home = () => {
   const { defaultStats, monthlyApplications } = useSelector(
     (store) => store.allJobs
   );
-  console.log('monthly application',  monthlyApplications)
   const [barChart, setBarChart] = useState(false);
 
   const dashboardStat = [

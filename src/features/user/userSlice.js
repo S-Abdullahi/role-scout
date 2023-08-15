@@ -69,7 +69,8 @@ const userSlice = createSlice({
     [loginUser.fulfilled]: (state, { payload }) => {
       const { user } = payload;
       state.isLoading = false;
-      state.user = setUserToLocalStorage(user);
+      state.user = user
+      setUserToLocalStorage(user);
       toast.success(`Welcome back ${user.name}`);
     },
     [loginUser.rejected]: (state, { payload }) => {
